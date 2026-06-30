@@ -1,0 +1,26 @@
+/* 1. Import the font at the absolute top of your CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+/* 2. Styling for your display */
+body {
+    color: #bbbbbb;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.digital-display {
+    /* Apply the font here */
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 5rem;
+    color: #1a31ff;
+    background-color: #000000;
+    padding: 10px 25px;
+    border-radius: 8px;
+    letter-spacing: 4px;
+    box-shadow: 0 0 20px rgba(128, 221, 243, 0.4);
+}

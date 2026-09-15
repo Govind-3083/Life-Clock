@@ -9,24 +9,310 @@
 </head>
 
 <body>
-    <h1>Life Clock</h1>
-    <div class="clock">
-        <div class="clock-face">
-            <div class="year-hand">00:</div> <!--how to make this in a horizontal line?-->
-            <div class="month-hand">00:</div>
-            <div class="day-hand">00:</div>
-            <div class="hour-hand">00:</div>
-            <div class="min-hand">00:</div>
-            <div class="second-hand">00</div>
+    <div id="container">
+        <h1>Life Clock</h1>
+
+        <!-- CLOCK DISPLAY -->
+        <div class="clock" id="clockSection" style="display: none;">
+            <div class="clock-face">
+                <div class="time-block">
+                    <span id="years">00</span>
+                    <label>YRS</label>
+                </div>
+                <span class="separator">:</span>
+                <div class="time-block">
+                    <span id="days">00</span>
+                    <label>DAYS</label>
+                </div>
+                <span class="separator">:</span>
+                <div class="time-block">
+                    <span id="hours">00</span>
+                    <label>HRS</label>
+                </div>
+                <span class="separator">:</span>
+                <div class="time-block">
+                    <span id="minutes">00</span>
+                    <label>MIN</label>
+                </div>
+                <span class="separator">:</span>
+                <div class="time-block">
+                    <span id="seconds">00</span>
+                    <label>SEC</label>
+                </div>
+            </div>
+            <p class="death-date" id="deathDate"></p>
+            <button class="btn restart-btn" onclick="restart()">RESTART</button>
+        </div>
+
+        <!-- QUIZ FORM -->
+        <div class="quiz-container" id="quizSection">
+            <!-- Step Progress -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="step-label" id="stepLabel">Step 1 of 11</p>
+
+            <!-- PAGE 1: Basic Info -->
+            <div class="form-page active" data-page="1">
+                <h2>Basic Information</h2>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" max="2027-12-31" min="1920-01-01" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country of Residence</label>
+                    <select id="country" required>
+                        <option value="">Select your country</option>
+                        <option value="840">United States</option>
+                        <option value="826">United Kingdom</option>
+                        <option value="124">Canada</option>
+                        <option value="036">Australia</option>
+                        <option value="276">Germany</option>
+                        <option value="250">France</option>
+                        <option value="392">Japan</option>
+                        <option value="156">China</option>
+                        <option value="356">India</option>
+                        <option value="076">Brazil</option>
+                        <option value="484">Mexico</option>
+                        <option value="410">South Korea</option>
+                        <option value="724">Spain</option>
+                        <option value="380">Italy</option>
+                        <option value="528">Netherlands</option>
+                        <option value="752">Sweden</option>
+                        <option value="056">Belgium</option>
+                        <option value="756">Switzerland</option>
+                        <option value="040">Austria</option>
+                        <option value="578">Norway</option>
+                        <option value="208">Denmark</option>
+                        <option value="246">Finland</option>
+                        <option value="620">Portugal</option>
+                        <option value="616">Poland</option>
+                        <option value="203">Czech Republic</option>
+                        <option value="642">Romania</option>
+                        <option value="100">Bulgaria</option>
+                        <option value="300">Greece</option>
+                        <option value="804">Ukraine</option>
+                        <option value="643">Russia</option>
+                        <option value="032">Argentina</option>
+                        <option value="152">Chile</option>
+                        <option value="170">Colombia</option>
+                        <option value="604">Peru</option>
+                        <option value="484">Mexico</option>
+                        <option value="710">South Africa</option>
+                        <option value="566">Nigeria</option>
+                        <option value="818">Egypt</option>
+                        <option value="784">UAE</option>
+                        <option value="682">Saudi Arabia</option>
+                        <option value="376">Israel</option>
+                        <option value="792">Turkey</option>
+                        <option value="360">Indonesia</option>
+                        <option value="458">Malaysia</option>
+                        <option value="702">Singapore</option>
+                        <option value="764">Thailand</option>
+                        <option value="608">Philippines</option>
+                        <option value="554">New Zealand</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Smoking -->
+            <div class="form-page" data-page="2">
+                <h2>Smoking Habits</h2>
+                <div class="form-group">
+                    <label>Do you smoke?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="smoke" value="never"> Never</label>
+                        <label class="radio-label"><input type="radio" name="smoke" value="former"> Former smoker</label>
+                        <label class="radio-label"><input type="radio" name="smoke" value="light"> Light (1-10/day)</label>
+                        <label class="radio-label"><input type="radio" name="smoke" value="heavy"> Heavy (10+/day)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>How many years have you smoked (or smoked)?</label>
+                    <input type="number" id="smokeYears" min="0" max="80" value="0" placeholder="0">
+                </div>
+            </div>
+
+            <!-- PAGE 3: Alcohol -->
+            <div class="form-page" data-page="3">
+                <h2>Alcohol Consumption</h2>
+                <div class="form-group">
+                    <label>How often do you drink alcohol?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="alcohol" value="never"> Never</label>
+                        <label class="radio-label"><input type="radio" name="alcohol" value="social"> Social (1-2x/month)</label>
+                        <label class="radio-label"><input type="radio" name="alcohol" value="moderate"> Moderate (2-3x/week)</label>
+                        <label class="radio-label"><input type="radio" name="alcohol" value="heavy"> Heavy (daily)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: Exercise -->
+            <div class="form-page" data-page="4">
+                <h2>Physical Activity</h2>
+                <div class="form-group">
+                    <label>How often do you exercise?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="exercise" value="sedentary"> Sedentary (rarely/never)</label>
+                        <label class="radio-label"><input type="radio" name="exercise" value="light"> Light (1-2x/week)</label>
+                        <label class="radio-label"><input type="radio" name="exercise" value="moderate"> Moderate (3-4x/week)</label>
+                        <label class="radio-label"><input type="radio" name="exercise" value="active"> Very Active (5+x/week)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: Diet -->
+            <div class="form-page" data-page="5">
+                <h2>Diet & Nutrition</h2>
+                <div class="form-group">
+                    <label>How would you describe your diet?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="diet" value="poor"> Poor (fast food, processed)</label>
+                        <label class="radio-label"><input type="radio" name="diet" value="average"> Average (mixed)</label>
+                        <label class="radio-label"><input type="radio" name="diet" value="good"> Good (balanced meals)</label>
+                        <label class="radio-label"><input type="radio" name="diet" value="excellent"> Excellent (whole foods, vegetables)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Do you eat 5+ servings of fruits/vegetables daily?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="fruits" value="yes"> Yes</label>
+                        <label class="radio-label"><input type="radio" name="fruits" value="no"> No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 6: Sleep -->
+            <div class="form-page" data-page="6">
+                <h2>Sleep</h2>
+                <div class="form-group">
+                    <label>How many hours do you sleep per night?</label>
+                    <select id="sleep">
+                        <option value="less5">Less than 5 hours</option>
+                        <option value="5to6">5 - 6 hours</option>
+                        <option value="7to8" selected>7 - 8 hours (recommended)</option>
+                        <option value="more9">More than 9 hours</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Do you have trouble sleeping or insomnia?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="insomnia" value="no"> No</label>
+                        <label class="radio-label"><input type="radio" name="insomnia" value="sometimes"> Sometimes</label>
+                        <label class="radio-label"><input type="radio" name="insomnia" value="yes"> Yes, frequently</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 7: Stress -->
+            <div class="form-page" data-page="7">
+                <h2>Stress & Mental Health</h2>
+                <div class="form-group">
+                    <label>How would you rate your daily stress level?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="stress" value="low"> Low - I feel calm</label>
+                        <label class="radio-label"><input type="radio" name="stress" value="moderate"> Moderate - Manageable</label>
+                        <label class="radio-label"><input type="radio" name="stress" value="high"> High - Often overwhelmed</label>
+                        <label class="radio-label"><input type="radio" name="stress" value="veryhigh"> Very High - Constant stress</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 8: Health Conditions -->
+            <div class="form-page" data-page="8">
+                <h2>Health Conditions</h2>
+                <div class="form-group">
+                    <label>Select any diagnosed conditions:</label>
+                    <div class="checkbox-group">
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="none"> None of these</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="heart"> Heart disease</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="hypertension"> High blood pressure</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="cancer"> Cancer (history)</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="stroke"> Stroke (history)</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="asthma"> Asthma / Lung disease</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="kidney"> Kidney disease</label>
+                        <label class="radio-label"><input type="checkbox" name="conditions" value="mental"> Depression / Anxiety</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 9: Family History -->
+            <div class="form-page" data-page="9">
+                <h2>Family Medical History</h2>
+                <div class="form-group">
+                    <label>Did any immediate family members have serious conditions before age 60?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="familyHistory" value="no"> No</label>
+                        <label class="radio-label"><input type="radio" name="familyHistory" value="yes"> Yes</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>What was the average lifespan of your grandparents?</label>
+                    <select id="grandparents">
+                        <option value="">Select</option>
+                        <option value="under60">Under 60</option>
+                        <option value="60to70">60 - 70</option>
+                        <option value="70to80">70 - 80</option>
+                        <option value="over80">Over 80</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PAGE 10: BMI -->
+            <div class="form-page" data-page="10">
+                <h2>Body Metrics</h2>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" min="100" max="250" placeholder="170">
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" min="30" max="300" placeholder="70">
+                </div>
+                <div id="bmiResult" class="bmi-result" style="display:none;"></div>
+            </div>
+
+            <!-- PAGE 11: Habits -->
+            <div class="form-page" data-page="11">
+                <h2>Lifestyle Habits</h2>
+                <div class="form-group">
+                    <label>Do you wear a seatbelt while driving?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="seatbelt" value="always"> Always</label>
+                        <label class="radio-label"><input type="radio" name="seatbelt" value="sometimes"> Sometimes</label>
+                        <label class="radio-label"><input type="radio" name="seatbelt" value="never"> Never</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Do you get regular health checkups (yearly)?</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="checkups" value="yes"> Yes</label>
+                        <label class="radio-label"><input type="radio" name="checkups" value="sometimes"> Sometimes</label>
+                        <label class="radio-label"><input type="radio" name="checkups" value="no"> No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="btn" id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+                <button class="btn" id="nextBtn" onclick="changePage(1)">Next</button>
+                <button class="btn submit-btn" id="submitBtn" onclick="calculate()" style="display:none;">Calculate My Life</button>
+            </div>
         </div>
     </div>
-    <n></n>
-    <!--best way to ask 10-15 questions to the user? -->
-    <div class="age">
-        <input type="date" max="2027-12-31" min="1930-01-01">
-    </div>
-    <script src="script.js" defer>
-    </script>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
